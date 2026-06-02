@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <title>To-Do-List</title>
+        <style>
+      body{
+    background: #0f172a; 
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+h1{
+    color: #38bdf8; 
+}
+input{
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #1e293b;
+    color: white;
+    
+}
+input::placeholder{
+    color: #cbd5e1;
+}
+button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #22c55e; 
+    color: white;
+    font-size: 16px;
+    margin:10px 5px;
+}
+#tasklist div{
+    background:#1e293b;
+    width:400px;
+    margin:15px auto;
+    padding:15px;
+    border-radius:10px;
+    text-align:left;
+}
+
+#tasklist h3{
+    color:#38bdf8;
+    margin-top:0;
+}
+
+#tasklist p{
+    margin:8px 0;
+}
+.completed{
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+.editbtn{
+    background: #3b82f6; 
+}
+
+.completebtn{
+    background: #22c55e;
+}
+
+.deletebtn{
+    background: #ef4444;
+}      </style>
+    </head>
+    <body>
+        <h1>To-DO-List</h1>
+        <input type="text" id="task" placeholder="Enter your task name" >
+        <input type ="date" id = "date" placeholder="Enter date">
+        <input type = "time"   id="time" placeholder="Enter Time"><br>
+            <button id="addbtn">Add</button>
+            <div id="tasklist"></div>
+    <script>
+const task = document.getElementById("task");
+const date = document.getElementById("date");
+const time = document.getElementById("time");
+const add = document.getElementById("addbtn");
+const list = document.getElementById("tasklist");
+
+add.addEventListener("click", function () {
+
+    if(task.value === ""){
+        alert("Please enter a task");
+        return;
+    }
+
+    let currentTask = task.value;
+    let currentDate = date.value;
+    let currentTime = time.value;
+
+    let newtask = document.createElement("div");
+    newtask.innerHTML =
+        "<h3>Task Details</h3>" +
+        "<p><strong>Task:</strong> " + currentTask + "</p>" +
+        "<p><strong>Date:</strong> " + currentDate + "</p>" +
+        "<p><strong>Time:</strong> " + currentTime + "</p>";
+    let completebtn = document.createElement("button");
+    completebtn.textContent = "Complete";
+    completebtn.classList.add("completebtn");
+    completebtn.addEventListener("click", function () {
+        newtask.classList.toggle("completed");
+    });
+
+  let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("deletebtn");
+
+    deleteBtn.addEventListener("click", function () {
+    newtask.remove();
+    });
+
+    let editbtn = document.createElement("button");
+editbtn.textContent = "Edit";
+    editbtn.classList.add("editbtn");
+
+editbtn.addEventListener("click", function () {
+
+        task.value = currentTask;
+        date.value = currentDate;
+       time.value = currentTime;
+
+        newtask.remove();
+    });
+    newtask.appendChild(completebtn);
+ newtask.appendChild(editbtn);
+ newtask.appendChild(deleteBtn);
+    list.appendChild(newtask);
+    task.value = "";
+    date.value = "";
+    time.value = "";
+});
+    </script>
+    </body>
+</html>
